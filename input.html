@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Quality Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Your existing styles */
+        .product-image {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 100%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        body.loaded .product-image {
+            opacity: 1;
+        }
+        
+        .container {
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 1800px;
+        }
+        
+        h1.text-center {
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #343a40;
+        }
+        
+        .form-group {
+            margin-bottom: 5px;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #495057;
+        }
+        
+        input.form-control, select.form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+        }
+        
+        button.btn.btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        
+        button.btn.btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .text-center {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .language-switcher {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .form-group.col-md-2 {
+                flex: 0 0 48%;
+                max-width: 48%;
+            }
+            
+            .form-row {
+                justify-content: space-around;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .form-group.col-md-2 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="product-image">
+        <img src="{{ url_for('static', filename='images/desh.jpg') }}" alt="Food Image"/>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <h1 class="text-center" id="form-title">Predict Your Food Quality</h1>
+
+            <div class="language-switcher">
+                <label for="languageSelect">Choose Language:</label>
+                <select id="languageSelect" class="form-control" style="width: 200px; margin: 0 auto;">
+                    <option value="english">English</option>
+                    <option value="hindi">Hindi</option>
+                </select>
+            </div>
+
+            <form id="foodQualityForm" action="{{ url_for('predict_food_quality') }}" method="post">
+                <!-- First Row: First 5 Fields -->
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label id="nameLabel" for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                        <div class="error-message" id="nameError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="freshnessLabel" for="freshness">Freshness (in days):</label>
+                        <input type="number" class="form-control" id="freshness" name="freshness" required>
+                        <div class="error-message" id="freshnessError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="colorIntensityLabel" for="color_intensity">Color Intensity:</label>
+                        <input type="number" class="form-control" id="color_intensity" name="color_intensity" required>
+                        <div class="error-message" id="colorIntensityError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="phLevelLabel" for="ph_level">pH Level (soil):</label>
+                        <input type="number" step="0.1" class="form-control" id="ph_level" name="ph_level" required>
+                        <div class="error-message" id="phLevelError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="moistureContentLabel" for="moisture_content">Moisture Content (%):</label>
+                        <input type="number" step="0.1" class="form-control" id="moisture_content" name="moisture_content" required>
+                        <div class="error-message" id="moistureContentError"></div>
+                    </div>
+                </div>
+
+                <!-- Second Row: Next 5 Fields -->
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label id="sugarContentLabel" for="sugar_content">Sugar Content (%):</label>
+                        <input type="number" step="0.1" class="form-control" id="sugar_content" name="sugar_content" required>
+                        <div class="error-message" id="sugarContentError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="textureLabel" for="texture">Texture:</label>
+                        <select class="form-control" id="texture" name="texture" required>
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="smooth">Smooth</option>
+                            <option value="rough">Rough</option>
+                            <option value="bumpy">Bumpy</option>
+                        </select>
+                        <div class="error-message" id="textureError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="odorIntensityLabel" for="odor_intensity">Odor Intensity:</label>
+                        <input type="number" class="form-control" id="odor_intensity" name="odor_intensity" required>
+                        <div class="error-message" id="odorIntensityError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="nutritionalValueLabel" for="nutritional_value">Nutritional Value:</label>
+                        <input type="number" class="form-control" id="nutritional_value" name="nutritional_value" required>
+                        <div class="error-message" id="nutritionalValueError"></div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label id="shelfLifeLabel" for="shelf_life">Shelf Life (days):</label>
+                        <input type="number" class="form-control" id="shelf_life" name="shelf_life" required>
+                        <div class="error-message" id="shelfLifeError"></div>
+                    </div>
+                </div>
+
+                <!-- Third Row: Last Field -->
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label id="additivesLabel" for="presence_of_additives">Presence of Additives:</label>
+                        <select class="form-control" id="presence_of_additives" name="presence_of_additives" required>
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <div class="error-message" id="presenceOfAdditivesError"></div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Predict</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add('loaded');
+        });
+
+        // Language toggle functionality
+        const labels = {
+            english: {
+                title: "Food Quality Prediction",
+                name: "Name:",
+                freshness: "Freshness:",
+                colorIntensity: "Color Intensity:",
+                phLevel: "pH Level (soil):",
+                moistureContent: "Moisture Content (%):",
+                sugarContent: "Sugar Content (%):",
+                texture: "Texture:",
+                odorIntensity: "Odor Intensity:",
+                nutritionalValue: "Nutritional Value:",
+                shelfLife: "Shelf Life (days):",
+                additives: "Presence of Additives:"
+            },
+            hindi: {
+                title: "अपने खाद्य गुणवत्ता की भविष्यवाणी करें",
+                name: "नाम:",
+                freshness: "ताजगी:",
+                colorIntensity: "रंग की तीव्रता:",
+                phLevel: "pH स्तर (मिट्टी):",
+                moistureContent: "नमी की मात्रा (%):",
+                sugarContent: "चीनी की मात्रा (%):",
+                texture: "पार्श्वभूमि:",
+                odorIntensity: "गंध तीव्रता:",
+                nutritionalValue: "पोषण मूल्य:",
+                shelfLife: "शेल्फ जीवन (दिन):",
+                additives: "अतिरिक्त सामग्री की उपस्थिति:"
+            }
+        };
+
+        document.getElementById('languageSelect').addEventListener('change', function() {
+            const selectedLanguage = this.value;
+            const texts = labels[selectedLanguage];
+
+            document.getElementById('form-title').textContent = texts.title;
+            document.getElementById('nameLabel').textContent = texts.name;
+            document.getElementById('freshnessLabel').textContent = texts.freshness;
+            document.getElementById('colorIntensityLabel').textContent = texts.colorIntensity;
+            document.getElementById('phLevelLabel').textContent = texts.phLevel;
+            document.getElementById('moistureContentLabel').textContent = texts.moistureContent;
+            document.getElementById('sugarContentLabel').textContent = texts.sugarContent;
+            document.getElementById('textureLabel').textContent = texts.texture;
+            document.getElementById('odorIntensityLabel').textContent = texts.odorIntensity;
+            document.getElementById('nutritionalValueLabel').textContent = texts.nutritionalValue;
+            document.getElementById('shelfLifeLabel').textContent = texts.shelfLife;
+            document.getElementById('additivesLabel').textContent = texts.additives;
+        });
+
+        document.getElementById('foodQualityForm').addEventListener('submit', function(event) {
+            let valid = true;
+            
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+            // Example validation checks
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required.';
+                valid = false;
+            }
+
+            const freshness = document.getElementById('freshness').value;
+            if (freshness < 0 || isNaN(freshness)) {
+                document.getElementById('freshnessError').textContent = 'Freshness must be a positive number.';
+                valid = false;
+            }
+
+            // Add additional validation checks as needed
+
+            if (!valid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+    </script>
+</body>
+</html>

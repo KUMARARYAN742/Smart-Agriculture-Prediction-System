@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Usage Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('../static/images/water3.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .language-toggle {
+            float: right;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-toggle">
+            <button id="toggleLanguage" class="btn btn-success">Switch to Hindi</button>
+        </div>
+
+        <h1 id="title" class="mt-5">Predict Water Quamtity for your Crops</h1>
+        <form action="/predict_water_usage" method="POST">
+            <div class="form-group">
+                <label id="soilMoistureLabel" for="SoilMoisture">Soil Moisture</label>
+                <input type="number" step="any" class="form-control" name="SoilMoisture" required>
+            </div>
+            <div class="form-group">
+                <label id="soilTemperatureLabel" for="SoilTemperature">Soil Temperature</label>
+                <input type="number" step="any" class="form-control" name="SoilTemperature" required>
+            </div>
+            <div class="form-group">
+                <label id="airTemperatureLabel" for="AirTemperature">Air Temperature</label>
+                <input type="number" step="any" class="form-control" name="AirTemperature" required>
+            </div>
+            <div class="form-group">
+                <label id="humidityLabel" for="Humidity">Humidity</label>
+                <input type="number" step="any" class="form-control" name="Humidity" required>
+            </div>
+            <div class="form-group">
+                <label id="phLabel" for="pH">Soil pH</label>
+                <input type="number" step="any" class="form-control" name="pH" required>
+            </div>
+            <div class="form-group">
+                <label id="cropTypeLabel" for="CropType">Crop Type</label>
+                <select name="CropType" class="form-control" required>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Rice">Rice</option>
+                    <option value="Corn">Corn</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label id="solarRadiationLabel" for="SolarRadiation">Solar Radiation</label>
+                <input type="number" step="any" class="form-control" name="SolarRadiation" required>
+            </div>
+            <div class="form-group">
+                <label id="windSpeedLabel" for="WindSpeed">Wind Speed</label>
+                <input type="number" step="any" class="form-control" name="WindSpeed" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict Water Usage</button>
+        </form>
+
+        {% if prediction %}
+            <h2 id="predictedUsage" class="mt-5">Predicted Water Usage: {{ prediction }} Litr/week</h2>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById('toggleLanguage').addEventListener('click', function() {
+            const currentLanguage = this.innerText;
+            if (currentLanguage === 'Switch to Hindi') {
+                document.getElementById('title').innerText = 'अपनी फसलों के लिए जल मात्रा की भविष्यवाणी करें';
+                document.getElementById('soilMoistureLabel').innerText = 'मिट्टी की नमी';
+                document.getElementById('soilTemperatureLabel').innerText = 'मिट्टी का तापमान';
+                document.getElementById('airTemperatureLabel').innerText = 'वायु का तापमान';
+                document.getElementById('humidityLabel').innerText = 'आर्द्रता';
+                document.getElementById('phLabel').innerText = 'मिट्टी पीएच';
+                document.getElementById('cropTypeLabel').innerText = 'फसल का प्रकार';
+                document.getElementById('solarRadiationLabel').innerText = 'सौर विकिरण';
+                document.getElementById('windSpeedLabel').innerText = 'पवन की गति';
+                if (document.getElementById('predictedUsage')) {
+                    document.getElementById('predictedUsage').innerText = 'अनुमानित जल उपयोग: {{ prediction }} लीटर/सप्ताह';
+                }
+                this.innerText = 'Switch to English';
+            } else {
+                document.getElementById('title').innerText = 'Water Usage Prediction';
+                document.getElementById('soilMoistureLabel').innerText = 'Soil Moisture';
+                document.getElementById('soilTemperatureLabel').innerText = 'Soil Temperature';
+                document.getElementById('airTemperatureLabel').innerText = 'Air Temperature';
+                document.getElementById('humidityLabel').innerText = 'Humidity';
+                document.getElementById('phLabel').innerText = 'Soil pH';
+                document.getElementById('cropTypeLabel').innerText = 'Crop Type';
+                document.getElementById('solarRadiationLabel').innerText = 'Solar Radiation';
+                document.getElementById('windSpeedLabel').innerText = 'Wind Speed';
+                if (document.getElementById('predictedUsage')) {
+                    document.getElementById('predictedUsage').innerText = 'Predicted Water Usage: {{ prediction }} Litr/week';
+                }
+                this.innerText = 'Switch to Hindi';
+            }
+        });
+    </script>
+</body>
+</html>

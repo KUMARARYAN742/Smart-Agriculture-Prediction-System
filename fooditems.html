@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+      .product-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      .product-image {
+        flex: 1;
+        max-width: 45%;
+        text-align: center;
+      }
+      .product-image img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .product-details {
+        flex: 1;
+        max-width: 50%;
+        padding: 20px;
+        background-color: #ffffff; 
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .product-details h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 10px;
+      }
+      .product-details p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+      .product-details label {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      .note {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .note a {
+        color: #dc3545;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Wheat</h1>
+
+    <div class="product-section">
+      <div class="product-image">
+        <img src="{{ url_for('static', filename='images/Wheat.jpg') }}" alt="First slide"/>
+    </div>
+      <div class="product-details">
+        <h2>Contact Details</h2>
+        <p>
+          <label for="seller-name">Seller Name:</label>
+          <span id="seller-name">Himanshu</span>
+        </p>
+        <p>
+          <label for="company-name">Company Name:</label>
+          <span id="company-name">Gietu Pvt Ltd.</span>
+        </p>
+
+        <h2>Product Info</h2>
+        <p>
+          <label for="product-name">Product Name:</label>
+          <span id="product-name">Kaju</span>
+        </p>
+        <p>
+          <label for="for">For:</label>
+          <span id="for">Sale</span>
+        </p>
+        <p>
+          <label for="categories">Categories:</label>
+          <span id="categories">Seeds</span>
+        </p>
+        <p>
+          <label for="about">About:</label>
+          <span id="about">Kaju dry Fruits</span>
+        </p>
+        <p>
+          <label for="industry">Industry:</label>
+          <span id="industry">Agriculture</span>
+        </p>
+
+        <h2>Product Summary</h2>
+        <p>
+          <label for="manufacture-name">Manufacture Name:</label>
+          <span id="manufacture-name">Farmer</span>
+        </p>
+        <p>
+          <label for="quantity">Available Quantity:</label>
+          <span id="quantity">75Kg.</span>
+        </p>
+        <p>
+          <label for="unit-price">Unit Price:</label>
+          <span id="unit-price">150INR</span>
+        </p>
+        <p>
+          <label for="origin">Country of Origin:</label>
+          <span id="origin">India</span>
+        </p>
+        <p>
+          <label for="location">Location:</label>
+          <span id="location">Odisha</span>
+        </p>
+
+        <h2>Dimension</h2>
+        <p>
+          <label for="length">Length:</label>
+          <span id="length">2cm</span>
+        </p>
+        <p>
+          <label for="height">Height:</label>
+          <span id="height">2cm</span>
+        </p>
+        <p>
+          <label for="sku">Stock Keeping Unit:</label>
+          <span id="sku">pkt</span>
+        </p>
+        <p>
+          <label for="width">Width:</label>
+          <span id="width">2cm</span>
+        </p>
+
+        <h2>Weight & Volume</h2>
+        <p>
+          <label for="weight">Weight:</label>
+          <span id="weight">100kg</span>
+        </p>
+        <p>
+          <label for="volume">Volume:</label>
+          <span id="volume">10cm</span>
+        </p>
+
+        <h2>Feature & Specification</h2>
+        <p>
+          <label for="feature-name">Feature Name:</label>
+          <span id="feature-name">Kaju</span>
+        </p>
+        <p>
+          <label for="feature-detail">Feature Detail:</label>
+          <span id="feature-detail">Good for health</span>
+        </p>
+      </div>
+    </div>
+
+    <p class="note">
+      <a href="#">Note: Please Login to Buy Product</a>
+    </p>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

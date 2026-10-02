@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 10px;
+            width: 100%;
+            background-color: darkblue;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-nav h1 {
+            margin-left: 620px;
+        }
+
+        .top-nav img {
+            margin-left: 10px;
+            width: 50px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #2f2f2f;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 35px;
+            text-align: left;
+            font-size: 1.1em;
+            color: white;
+            display: block;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .main-content {
+            margin-left: 420px;
+            margin-top: 200px;
+            padding: 20px;
+            max-width: 800px;
+        }
+
+        h2 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .dashboard-item {
+            padding: 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            width: 150px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .dashboard-item i {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .dashboard-item:hover {
+            background-color: #45a049;
+        }
+
+        .dashboard-item:active {
+            background-color: #3e8e41;
+        }
+        .container {
+            max-width: 400px;
+            margin: 160px auto;
+            padding: 10px;
+            background-color: lightred;
+            box-shadow: 0 0 70px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Horizontal Top Dashboard -->
+    <div class="top-nav">
+        <div>
+            <img src="{{ url_for('static', filename='images/smart-agriculture-logo.jpg') }}" alt="Fasal Mandi" class="logo"/>
+            <h1>Welcome To Our Smart Agritech</h1>
+        </div>
+    </div>
+
+    <!-- Vertical Left Sidebar -->
+    <div class="sidebar">
+        <a href="#">Sales</a>
+        <a href="#">Customers</a>
+        <a href="#">Products</a>
+        <a href="#">Suppliers</a>
+        <a href="#">Sales Report</a>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <h2>Market Dashboard</h2>
+        <div class="dashboard">
+            <a href="#" class="dashboard-item">
+                <i class="fas fa-chart-line"></i> Sales
+            </a>
+            <a href="#" class="dashboard-item">
+                <i class="fas fa-boxes"></i> Products
+            </a>
+            <a href="/customer" class="dashboard-item">
+                <i class="fas fa-user"></i> Customers
+            </a>
+            <a href="/farmer" class="dashboard-item">
+                <i class="fas fa-truck"></i> Suppliers
+            </a>
+            <a href="#" class="dashboard-item">
+                <i class="fas fa-file-alt"></i> Sales Report
+            </a>
+            <a href="#" class="dashboard-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+   
+</body>
+</html>

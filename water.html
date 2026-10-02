@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Usage Prediction</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .navbar {
+            background-color: #00bfff; /* Water color */
+            padding: 10px;
+            text-align: center;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .navbar ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar ul li a:hover {
+            text-decoration: underline;
+        }
+        .background {
+            background-image: url('../static/images/water.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+       
+        h1 {
+            margin-bottom: 20px;
+        }
+        .btn-predict {
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-left:650px;
+            margin-top:500px;
+            
+        }
+        .btn-predict:hover {
+            animation: flash 0.9s ease-in-out;
+        }
+        @keyframes flash {
+            0% { box-shadow: 0 0 10px #00bfff; }
+            50% { box-shadow: 0 0 20px #00bfff; }
+            100% { box-shadow: 0 0 10px #00bfff; }
+        }
+    </style>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a class="nav-link" href="{{ url_for('water_usage_page') }}"> <i class="fas fa-water"></i> water_usage</a></li>
+        </ul>
+    </div>
+    <div class="background">
+            <a href="{{ url_for('water_usage_page') }}" class="btn-predict">Predict Water Usage</a>
+    </div>
+    <script>
+        function predictWaterUsage() {
+            alert('The water usage prediction feature will be implemented soon!');
+        }
+    </script>
+</body>
+</html>

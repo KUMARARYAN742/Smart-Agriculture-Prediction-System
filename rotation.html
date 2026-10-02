@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Rotation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .background {
+            background-image: url('../static/images/rotation.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 240px;
+            margin-left:-200px;
+        }
+        .btn-black {
+            background-color: #000; /* Black color */
+            color: #fff; /* White text */
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn-black:hover {
+            background-color: #333; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="container">
+           
+            <a href="{{ url_for('croprotation') }}" class="btn btn-black">View Recommendations</a>
+        </div>
+    </div>
+</body>
+</html>

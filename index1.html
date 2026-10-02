@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crop Yield Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+      body {
+        background-color: #f5f5f5;
+        font-family: 'Arial', sans-serif;
+        color: #333;
+
+      }
+     
+      h1 {
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #28a745;
+      }
+      h2 {
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .container {
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+      .form-group label {
+        font-weight: 600;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+      .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
+      .alert {
+        font-weight: bold;
+      }
+      input {
+        border-radius: 10px;
+      }
+      .language-toggle {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .btn-toggle {
+        border-radius: 0%;
+        width: 100px;
+        height: 40px;
+        border: none;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .btn-en {
+        background-color: #28a745;
+      }
+      .btn-hi {
+        background-color: #007bff;
+      }
+      .btn-active {
+        border: 2px solid #333;
+      }
+      .invalid-feedback {
+        display: none;
+        color: #dc3545;
+      }
+      .is-invalid ~ .invalid-feedback {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Language Toggle -->
+    <div class="container my-4">
+      <div class="language-toggle">
+        <button id="btn-en" class="btn btn-toggle btn-en btn-active" onclick="changeLanguage('en')">ENGLISH</button>
+        <button id="btn-hi" class="btn btn-toggle btn-hi" onclick="changeLanguage('hi')">HINDI</button>
+      </div>
+    </div>
+
+    <h1 class="text-center my-4" data-en="Country-Specific Crop Yield Forecasting" data-hi="फसल उपज भविष्यवाणी प्रति देश">Country-Specific Crop Yield Forecasting</h1>
+  
+    <div class="container my-4 p-4" style="border-radius: 20px;">
+      <h2 class="text-center text-primary" data-en="Input All Features Here" data-hi="यहां सभी विशेषताओं का इनपुट करें">Input All Features Here</h2>
+
+      <form id="predictionForm" action="/predict_crop_yield" method="post" novalidate>
+        <div class="form-group my-3">
+          <label for="Year" data-en="Year" data-hi="वर्ष">Year</label>
+          <input type="number" class="form-control" id="Year" name="Year" step="any" min="2000" max="2099" value="2013" required>
+          <div class="invalid-feedback">Please enter a valid year between 2000 and 2099.</div>
+        </div>
+        <div class="form-group my-3">
+          <label for="average_rain_fall_mm_per_year" data-en="Average Rainfall (mm/year)" data-hi="औसत वर्षा (मिमी/वर्ष)">Average Rainfall (mm/year)</label>
+          <input type="number" class="form-control" id="average_rain_fall_mm_per_year" name="average_rain_fall_mm_per_year" step="any" min="0" required>
+          <div class="invalid-feedback">Please enter a valid average rainfall amount.</div>
+        </div>
+        <div class="form-group my-3">
+          <label for="pesticides_tonnes" data-en="Pesticides (tonnes)" data-hi="कीटनाशक (टन)">Pesticides (tonnes)</label>
+          <input type="number" class="form-control" id="pesticides_tonnes" name="pesticides_tonnes" step="any" min="0" required>
+          <div class="invalid-feedback">Please enter a valid amount of pesticides.</div>
+        </div>
+        <div class="form-group my-3">
+          <label for="avg_temp" data-en="Average Temperature (°C)" data-hi="औसत तापमान (°C)">Average Temperature (°C)</label>
+          <input type="number" class="form-control" id="avg_temp" name="avg_temp" step="any" min="-50" max="60" required>
+          <div class="invalid-feedback">Please enter a valid average temperature.</div>
+        </div>
+        <div class="form-group my-3">
+          <label for="Area" data-en="Location" data-hi="स्थान">Location</label>
+          <input type="text" class="form-control" id="Area" name="Area" required>
+          <div class="invalid-feedback">Please enter a valid location.</div>
+        </div>
+        <div class="form-group my-3">
+          <label for="Item" data-en="Item (Crop Name)" data-hi="आइटम (फसल का नाम)">Item (Crop Name)</label>
+          <input type="text" class="form-control" id="Item" name="Item" required>
+          <div class="invalid-feedback">Please enter a valid crop name.</div>
+        </div>
+        <button type="submit" class="btn btn-danger btn-lg mt-4 btn-block w-100" data-en="Predict" data-hi="भविष्यवाणी करें">Predict</button>
+      </form>
+
+      {% if prediction %}
+      <div class="alert alert-success text-center mt-4">
+        <h2>Predicted Yield: {{ prediction }}Hg/Ha</h2>
+      </div>
+      {% endif %}
+    </div>
+
+    <script>
+      function changeLanguage(language) {
+        const elements = document.querySelectorAll('[data-en], [data-hi]');
+        elements.forEach(function (element) {
+          element.textContent = element.getAttribute('data-' + language);
+        });
+        
+        document.getElementById('btn-en').classList.toggle('btn-active', language === 'en');
+        document.getElementById('btn-hi').classList.toggle('btn-active', language === 'hi');
+      }
+
+      // Initialize language based on the default button state
+      changeLanguage('en');
+
+      // Form validation
+      document.getElementById('predictionForm').addEventListener('input', function (event) {
+        const form = event.target.form;
+        if (form.checkValidity()) {
+          form.classList.remove('was-validated');
+        } else {
+          form.classList.add('was-validated');
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+</html>

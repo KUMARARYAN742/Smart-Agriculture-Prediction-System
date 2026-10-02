@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Marketing Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Top Horizontal Dashboard */
+        .thin-dashboard {
+            background-color: lightblue;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .thin-dashboard a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .thin-dashboard a:hover {
+            color: #0056b3;
+        }
+
+        /* Scrolling Text */
+        .scrolling-text {
+            background-color: lightgrey;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .scrolling-text p {
+            white-space: nowrap;
+            position: absolute;
+            animation: scroll-text 20s linear infinite;
+            font-weight: bold;
+            color: #333;
+        }
+
+        @keyframes scroll-text {
+            0% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        /* Left Side Boxes */
+        .box-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .box {
+            height: 50px;
+            background-color: #5da7c7;
+            color: #fff;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .box i {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .box:hover {
+            background-color: #3a79a1; /* Slightly dark blue on hover */
+        }
+
+        /* Center Image Section */
+        .dashboard-section {
+            background-color: #1b6a91;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dashboard-title {
+            margin-bottom: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .custom-image-size {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Right Side Content */
+        .right-side-div {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        .right-side-div .ribbon {
+            background-color: darkblue;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .right-side-div .info-link {
+            background-color: #5da7c7;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .right-side-div .info-link a {
+            color: white;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .right-side-div .columns {
+            display: block; /* Change flex to block */
+            text-align: center;
+        }
+        
+        .right-side-div .column {
+            background-color: #5da7c7;
+            color: white;
+            padding: 20px; /* Adjust padding as needed */
+            border-radius: 4px;
+            margin-bottom: 10px; /* Add margin to separate the columns */
+            width: 100%; /* Make sure it takes the full width of the container */
+        }
+        
+        
+
+        .right-side-div .column:last-child {
+            margin-right: 0;
+        }
+
+        .footer {
+            background-color: #0a435f;
+            color: white;
+            height: 150px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.2);
+        }
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap; /* Allows the images to wrap to the next line */
+            gap: 10px; /* Adjusts the spacing between images */
+            margin: 20px 0; /* Adds some margin above and below the grid */
+        }
+
+     /* Container for scrolling images */
+.image-scroll-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #f0f2f5;
+    padding: 20px 0;
+}
+
+.image-scroll-wrapper {
+    display: flex;
+    width: auto;
+    animation: scroll-left 30s linear infinite;
+}
+
+/* Pause animation on hover */
+.image-scroll-container:hover .image-scroll-wrapper {
+    animation-play-state: paused;
+}
+
+.image-box {
+    flex: 0 0 auto;
+    width: 400px; /* Increase width */
+    height: 100px; /* Increase height */
+    margin-right: 15px; /* Adjust spacing between boxes */
+    border: 1px solid #ddd; /* Optional: add border for visual separation */
+    border-radius: 8px; /* Optional: rounded corners */
+    overflow: hidden; /* Ensures content doesn't overflow */
+}
+
+.image-box img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover; /* Ensures the image covers the entire box */
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Top Image -->
+    <div class="container-fluid p-0">
+        <img src="{{ url_for('static', filename='images/desh.jpg') }}" class="d-block w-100" alt="Top Image">
+    </div>
+
+    <!-- Thin Horizontal Dashboard -->
+    <div class="thin-dashboard d-flex justify-content-around">
+        <a href="#"><i class="fas fa-home"></i> Home</a>
+        <a href="#"><i class="fas fa-project-diagram"></i> Agmarknet Project</a>
+        <a href="#"><i class="fas fa-chart-bar"></i> Price and Arrival</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Price Trend</a>
+        <a href="#"><i class="fas fa-phone-alt"></i> Reach Us</a>
+        <a href="#"><i class="fas fa-file-contract"></i> Tender</a>
+    </div>
+
+    <!-- Scrolling Text Dashboard -->
+    <div class="scrolling-text">
+        <strong>AGMARKNET 1 Sept 2024</strong>
+        <p>Your scrolling message here will continuously run from left to right across the screen.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-4">
+        <div class="row">
+            <!-- Left Side Boxes -->
+            <div class="col-md-3">
+                <<div class="box-container">
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/DailyDataEntry/Daily_data_Entry_Login.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-database"></i> Market Daily Data Entry
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/market_profile/Home.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-edit"></i> Market Profile Update
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarkonline.dmi.gov.in/DMI/" style="color: white; text-decoration: none;">
+                            <i class="fas fa-portal-enter"></i> DMI Portal
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="http://127.0.0.1:5000/link-to-agmarkonline-portal" style="color: white; text-decoration: none;">
+                            <i class="fas fa-globe"></i> AGMARKONLINE Portal
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/MarketingBoards/Default.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-chart-pie"></i> Marketing Board
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/ResearchStudies/Default.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-search"></i> Research Studies
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/CommodityProfiles/Default.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-book"></i> Commodity Profile
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="http://www.fao.org/giews/english/index.htm" style="color: white; text-decoration: none;">
+                            <i class="fas fa-utensils"></i> Food Outlook
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/MarketProfile/MarketProfile.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-file-alt"></i> Market Profile
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://mkisan.gov.in/Alpha/default.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-mobile-alt"></i> SMS Registration
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/pmsnew/pms_Login.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-tasks"></i> Performance Monitoring
+                        </a>
+                    </div>
+                    <div class="box">
+                        <a href="https://agmarknet.gov.in/ConatctUs/Feedback.aspx" style="color: white; text-decoration: none;">
+                            <i class="fas fa-comments"></i> Feedback/Suggestions
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Center Image -->
+            <div class="col-md-6 text-center">
+                <div class="dashboard-section p-3">
+                    <h3 class="dashboard-title">Dashboard</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="{{ url_for('static', filename='images/dashboard.png') }}" alt="Center Image" class="img-fluid custom-image-size">
+                        </div>
+                        <div class="col-6">
+                            <img src="{{ url_for('static', filename='images/dashboard1.png') }}" alt="Center Image" class="img-fluid custom-image-size">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <img src="{{ url_for('static', filename='images/dashboard2.png') }}" alt="Center Image" class="img-fluid custom-image-size">
+                        </div>
+                        <div class="col-6">
+                            <img src="{{ url_for('static', filename='images/dashboard3.png') }}" alt="Center Image" class="img-fluid custom-image-size">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side Div -->
+            <div class="col-md-3">
+                <div class="right-side-div">
+                    <div class="ribbon">Today's Mandi Prices</div>
+                    <div class="info-link">
+                        For more queries on Prices and Arrivals <a href="https://agmarknet.gov.in/PriceAndArrivals/arrivals1.aspx">Click here</a>
+                    </div>
+                    <div class="columns">
+                        <div class="column">All India Level Price Range (Rs./Quintal) : 02-Sep-2024</div>
+                        <div class="column">Markets Reported : 759</div>
+                        <div class="column">NR: Not Reported</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="image-scroll-container">
+        <div class="image-scroll-wrapper">
+            <!-- Wrap each image with an anchor tag for linking -->
+            <div class="image-box">
+                <a href="https://example.com/page1" target="_blank">
+                    <img src="{{ url_for('static', filename='images/maharashtrastate.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page2" target="_blank">
+                    <img src="{{ url_for('static', filename='images/1.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page3" target="_blank">
+                    <img src="{{ url_for('static', filename='images/2.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page4" target="_blank">
+                    <img src="{{ url_for('static', filename='images/3.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page5" target="_blank">
+                    <img src="{{ url_for('static', filename='images/20.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page6" target="_blank">
+                    <img src="{{ url_for('static', filename='images/5.jpg') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page7" target="_blank">
+                    <img src="{{ url_for('static', filename='images/21.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page8" target="_blank">
+                    <img src="{{ url_for('static', filename='images/7.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page9" target="_blank">
+                    <img src="{{ url_for('static', filename='images/8.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="http://seednet.gov.in/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/9.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="http://seednet.gov.in/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/10.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page12" target="_blank">
+                    <img src="{{ url_for('static', filename='images/11.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page13" target="_blank">
+                    <img src="{{ url_for('static', filename='images/12.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page14" target="_blank">
+                    <img src="{{ url_for('static', filename='images/13.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page15" target="_blank">
+                    <img src="{{ url_for('static', filename='images/14.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page16" target="_blank">
+                    <img src="{{ url_for('static', filename='images/15.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page17" target="_blank">
+                    <img src="{{ url_for('static', filename='images/16.png') }}" alt="Top Image">
+                </a>
+            </div>
+            <div class="image-box">
+                <a href="https://example.com/page18" target="_blank">
+                    <img src="{{ url_for('static', filename='images/20.png') }}" alt="Top Image">
+                </a>
+            </div>
+
+        </div>
+    </div>          
+
+            
+        </div>
+    </div>
+    <div class="footer">
+        <p>Directorate of Marketing & Inspection (DMI), Ministry of Agriculture and Farmers Welfare, <br> Government of India</p>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

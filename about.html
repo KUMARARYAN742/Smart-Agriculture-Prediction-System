@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | AgriTech Initiative</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        background-color: #4caf50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        animation: fadeInDown 1s ease-in-out;
+      }
+
+      @keyframes fadeInDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: slideInLeft 1.2s ease-in-out;
+      }
+
+      @keyframes slideInLeft {
+        0% {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      h2 {
+        color: #333;
+        text-align: center;
+      }
+
+      p {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      .highlight {
+        color: #4caf50;
+        font-weight: bold;
+      }
+
+      .cta {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .cta button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .cta button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Welcome to Our AgriTech Initiative</h1>
+      </div>
+      <div class="content">
+        <h2>About Our Project</h2>
+        <p>
+          Our initiative aims to empower farmers by integrating
+          <span class="highlight"
+            >agriculture, food technology, and rural development</span
+          >. Our goal is to enhance food production, improve livelihoods, and
+          reduce poverty in rural areas.
+        </p>
+        <p>
+          We use advanced
+          <span class="highlight">artificial intelligence (AI)</span> and
+          <span class="highlight">machine learning</span> to provide data-driven
+          insights that help farmers predict the quality of their produce. With
+          <span class="highlight">real-time image processing</span>, farmers can
+          get immediate information about their crops, allowing them to identify
+          any potential issues and take corrective action for future harvests.
+        </p>
+        <p>
+          After assessing the quality, our
+          <span class="highlight">price prediction model</span> forecasts market
+          prices, so farmers know the best time to sell their goods. This way,
+          they can maximize their income while maintaining high-quality
+          standards.
+        </p>
+        <p>
+          If there are any quality issues, our system explains the causes and
+          offers guidance on how to improve for the next season. Additionally,
+          we help farmers connect with
+          <span class="highlight">government loan schemes</span> to secure funds
+          if needed, ensuring they can recover from any setbacks.
+        </p>
+        <p>
+          Our vision is to create a sustainable agricultural ecosystem where
+          technology bridges the gap between farmers and the resources they need
+          to thrive.
+        </p>
+        <div class="cta">
+          <button onclick="window.location.href='contact.html';">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Rotation Recommendation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9f5e9;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 30px;
+            color: #28a745;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        #recommendation {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .error {
+            color: red;
+        }
+        button:hover {
+            background-color: #218838 !important;
+        }
+        .language-toggle {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Language Toggle -->
+        <div class="language-toggle text-center">
+            <button class="btn btn-secondary" onclick="switchLanguage('en')">English</button>
+            <button class="btn btn-secondary" onclick="switchLanguage('hi')">हिन्दी</button>
+        </div>
+        
+        <h1 id="pageTitle" data-en="Crop Rotation Recommendation" data-hi="फसल घुमाव सिफारिश">Crop Rotation Recommendation</h1>
+        <form id="cropForm">
+            <!-- Previous Crops -->
+            <div class="mb-3">
+                <label for="previousCrops" class="form-label" data-en="Previous Crops:" data-hi="पिछले फसलें:">Previous Crops:</label>
+                <input type="text" class="form-control" id="previousCrops" placeholder="e.g., Wheat, Rice" required>
+                <div class="error" id="previousCropsError"></div>
+            </div>
+            <!-- Soil pH -->
+            <div class="mb-3">
+                <label for="soilPh" class="form-label" data-en="Soil pH:" data-hi="मिट्टी का पीएच:">Soil pH:</label>
+                <input type="number" class="form-control" id="soilPh" min="0" max="14" step="0.1" placeholder="Enter Soil pH" required>
+                <div class="error" id="soilPhError"></div>
+            </div>
+            <!-- Nutrient Levels -->
+            <div class="mb-3">
+                <label for="nutrientLevels" class="form-label" data-en="Nutrient Levels (N-P-K):" data-hi="पोषक तत्व स्तर (N-P-K):">Nutrient Levels (N-P-K):</label>
+                <input type="text" class="form-control" id="nutrientLevels" placeholder="e.g., 20-10-10" required>
+                <div class="error" id="nutrientLevelsError"></div>
+            </div>
+            <!-- Soil Texture -->
+            <div class="mb-3">
+                <label for="soilTexture" class="form-label" data-en="Soil Texture:" data-hi="मिट्टी की बनावट:">Soil Texture:</label>
+                <select class="form-control" id="soilTexture" required>
+                    <option value="">Select soil texture</option>
+                    <option value="sandy">Sandy</option>
+                    <option value="loamy">Loamy</option>
+                    <option value="clay">Clay</option>
+                    <option value="silt">Silt</option>
+                    <option value="peat">Peat</option>
+                    <option value="chalk">Chalk</option>
+                </select>
+                <div class="error" id="soilTextureError"></div>
+            </div>
+            
+            <!-- Moisture Levels -->
+            <div class="mb-3">
+                <label for="moistureLevels" class="form-label" data-en="Moisture Levels (%):" data-hi="नमी स्तर (%):">Moisture Levels (%):</label>
+                <input type="number" class="form-control" id="moistureLevels" min="0" max="100" step="1" placeholder="Enter Moisture Levels" required>
+                <div class="error" id="moistureLevelsError"></div>
+            </div>
+            <!-- Temperature -->
+            <div class="mb-3">
+                <label for="temperature" class="form-label" data-en="Temperature (°C):" data-hi="तापमान (°C):">Temperature (°C):</label>
+                <input type="number" class="form-control" id="temperature" min="-50" max="50" step="1" placeholder="Enter Temperature" required>
+                <div class="error" id="temperatureError"></div>
+            </div>
+            <!-- Humidity -->
+            <div class="mb-3">
+                <label for="humidity" class="form-label" data-en="Humidity (%):" data-hi="आर्द्रता (%):">Humidity (%):</label>
+                <input type="number" class="form-control" id="humidity" min="0" max="100" step="1" placeholder="Enter Humidity" required>
+                <div class="error" id="humidityError"></div>
+            </div>
+            <!-- Frost Dates -->
+            <div class="mb-3">
+                <label for="frostDates" class="form-label" data-en="Frost Dates (Days) temperature falls below 0° Celsius:" data-hi="ठंड की तिथियाँ (दिन) तापमान 0° सेल्सियस से नीचे गिरता है:">Frost Dates (Days) temperature falls below 0° Celsius:</label>
+                <input type="number" class="form-control" id="frostDates" min="0" max="365" step="1" placeholder="Enter Frost Dates" required>
+                <div class="error" id="frostDatesError"></div>
+            </div>
+            <!-- Nutrient Requirements -->
+            <div class="mb-3">
+                <label for="nutrientRequirements" class="form-label" data-en="Nutrient Requirements (N-P-K) nitrogen (N), phosphorus (P), and potassium (K):" data-hi="पोषक तत्व आवश्यकताएँ (N-P-K) नाइट्रोजन (N), फास्फोरस (P), और पोटेशियम (K):">Nutrient Requirements (N-P-K) nitrogen (N), phosphorus (P), and potassium (K):</label>
+                <input type="text" class="form-control" id="nutrientRequirements" placeholder="e.g., 20-15-15" required>
+                <div class="error" id="nutrientRequirementsError"></div>
+            </div>
+            <!-- Water Requirements -->
+            <div class="mb-3">
+                <label for="waterRequirements" class="form-label" data-en="Water Requirements (Liters/Week):" data-hi="पानी की आवश्यकताएँ (लीटर/सप्ताह):">Water Requirements (Liters/Week):</label>
+                <input type="number" class="form-control" id="waterRequirements" min="10" step="1" placeholder="Enter Water Requirements" required>
+                <div class="error" id="waterRequirementsError"></div>
+            </div>
+            <!-- Submit Button -->
+            <button type="button" class="btn btn-primary" id="submitBtn" disabled data-en="Get Recommendation" data-hi="सिफारिश प्राप्त करें">Get Recommendation</button>
+        </form>
+        <!-- Recommendation Display -->
+        <div id="recommendation" class="mt-4 alert alert-info"></div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional, for interactivity) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script> 
+        // Function to validate the input fields
+        function validateInputs() {
+            let isValid = true;
+    
+            const fields = [
+                { id: 'previousCrops', errorId: 'previousCropsError', condition: (value) => value.trim() !== '' },
+                { id: 'soilPh', errorId: 'soilPhError', condition: (value) => !isNaN(value) && value >= 4.5 && value <= 9.5 },
+                { id: 'nutrientLevels', errorId: 'nutrientLevelsError', condition: (value) => value.trim() !== '' },
+                { id: 'soilTexture', errorId: 'soilTextureError', condition: (value) => value.trim() !== '' },
+                { id: 'moistureLevels', errorId: 'moistureLevelsError', condition: (value) => !isNaN(value) && value >= 0 && value <= 100 },
+                { id: 'temperature', errorId: 'temperatureError', condition: (value) => !isNaN(value) && value >= 5 && value <= 45 },
+                { id: 'humidity', errorId: 'humidityError', condition: (value) => !isNaN(value) && value >= 0 && value <= 100 },
+                { id: 'frostDates', errorId: 'frostDatesError', condition: (value) => !isNaN(value) && value >= 0 && value <= 20 },
+                { id: 'nutrientRequirements', errorId: 'nutrientRequirementsError', condition: (value) => value.trim() !== '' },
+                { id: 'waterRequirements', errorId: 'waterRequirementsError', condition: (value) => !isNaN(value) && value >= 20 }
+            ];
+    
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const errorDiv = document.getElementById(field.errorId);
+                if (field.condition(input.value)) {
+                    errorDiv.innerText = '';
+                } else {
+                    if (field.id === 'waterRequirements' && input.value < 20) {
+                        errorDiv.innerText = 'Water requirements must be at least 20 liters/week.';
+                    } else {
+                        errorDiv.innerText = 'Invalid input. Please check.';
+                    }
+                    isValid = false;
+                }
+            });
+    
+            return isValid;
+        }
+    
+        // Function to get the crop recommendation based on user inputs
+        function getRecommendation() {
+            if (!validateInputs()) return;
+    
+            // Get the values from the form fields
+            const previousCrops = document.getElementById('previousCrops').value.toLowerCase();
+            const soilPh = parseFloat(document.getElementById('soilPh').value);
+            const nutrientLevels = document.getElementById('nutrientLevels').value.toLowerCase();
+            const soilTexture = document.getElementById('soilTexture').value.toLowerCase();
+            const moistureLevels = parseFloat(document.getElementById('moistureLevels').value);
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const humidity = parseFloat(document.getElementById('humidity').value);
+            const frostDates = parseInt(document.getElementById('frostDates').value);
+            const nutrientRequirements = document.getElementById('nutrientRequirements').value;
+            const waterRequirements = parseFloat(document.getElementById('waterRequirements').value);
+    
+            // Basic recommendation logic
+            let recommendation = '';
+    
+            // Check for soil texture conditions
+            if (soilTexture.includes('solid') && soilTexture.includes('odorless') && soilTexture.includes('white') && soilTexture.includes('crystals') && soilTexture.includes('pellets')) {
+                recommendation += 'This soil texture is ideal for crops like Lettuce, Carrots, and Radishes, which prefer well-drained soil.\n';
+            } else {
+                recommendation += 'Consider improving soil texture for better crop growth, such as adding organic matter for loamy soil.\n';
+            }
+    
+            // Check for temperature and humidity conditions
+            if (temperature > 20 && humidity < 60) {
+                recommendation += 'Crops that thrive in warmer and drier conditions, such as Corn, Beans, Sorghum, and Okra, might be suitable.\n';
+            } else if (temperature <= 20 && humidity >= 60) {
+                recommendation += 'Cooler and moist conditions may support crops like Spinach, Broccoli, Peas, and Kale.\n';
+            } else {
+                recommendation += 'Consider adjusting conditions for crops tolerant to varying temperatures, like Kale, Garlic, or Onions.\n';
+            }
+    
+            // Check for soil pH conditions
+            if (soilPh >= 6 && soilPh <= 7) {
+                recommendation += 'Soil pH is suitable for a wide range of crops like Tomatoes, Potatoes, Bell Peppers, and Cucumbers.\n';
+            } else if (soilPh < 6) {
+                recommendation += 'Acidic soil may be good for crops like Blueberries, Potatoes, or Radishes.\n';
+            } else if (soilPh > 7) {
+                recommendation += 'Alkaline soil may support crops like Asparagus, Beets, and Cabbage.\n';
+            }
+    
+            // Check for moisture levels
+            if (moistureLevels < 30) {
+                recommendation += 'Low moisture levels indicate crops like Millet, Sorghum, or Sunflowers, which are drought-resistant, may perform well.\n';
+            } else if (moistureLevels > 70) {
+                recommendation += 'High moisture levels may be suitable for water-intensive crops like Rice or Sugarcane.\n';
+            }
+    
+            // Check for frost tolerance
+            if (frostDates <= 10) {
+                recommendation += 'Crops that can withstand frost, like Cabbage, Carrots, and Brussel Sprouts, are a good choice for this region.\n';
+            } else {
+                recommendation += 'If frost is minimal, you can consider crops like Cucumbers, Tomatoes, or Zucchini, which are sensitive to frost.\n';
+            }
+    
+            // Check for nutrient levels
+            if (nutrientLevels.includes('low')) {
+                recommendation += 'With low nutrient levels, consider planting Legumes like Peas or Lentils, which can fix nitrogen and improve soil quality.\n';
+            } else if (nutrientLevels.includes('high')) {
+                recommendation += 'With high nutrient levels, high-demand crops like Corn or Wheat would thrive well.\n';
+            }
+    
+            // Check for water requirements
+            if (waterRequirements >= 50) {
+                recommendation += 'Crops like Rice, Sugarcane, and Cotton need higher water input and are suitable for this water availability.\n';
+            } else if (waterRequirements < 50 && waterRequirements >= 20) {
+                recommendation += 'Crops with moderate water needs, such as Wheat, Barley, and Pulses, may be a better fit.\n';
+            }
+    
+            // Check for previous crops (crop rotation)
+            if (previousCrops.includes('wheat') || previousCrops.includes('corn')) {
+                recommendation += 'Following crops like Wheat or Corn, consider rotating with Legumes (Beans, Peas) to restore soil nitrogen levels.\n';
+            }
+    
+            // Display the recommendation
+            document.getElementById('recommendation').innerText = recommendation;
+            document.getElementById('recommendation').style.display = 'block';
+        }
+    
+        // Enable/disable submit button based on form validation
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                document.getElementById('submitBtn').disabled = !validateInputs();
+            });
+        });
+    
+        document.getElementById('submitBtn').addEventListener('click', getRecommendation);
+    
+        // Function to switch language
+        function switchLanguage(lang) {
+            document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+                element.innerText = element.getAttribute('data-' + lang);
+            });
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        /* Add styles for the dashboard */
+       
+        body {
+            
+            .poppins-thin {
+                font-family: "Poppins", sans-serif;
+                font-weight: 100;
+                font-style: normal;
+              }
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            background-color: aliceblue;
+          }
+        .welcome-section {
+            background-color: whitesmoke;
+            color: #0a8c0a;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px; /* Adjust based on your navbar height */
+            border-radius: 10px;
+          }
+    
+          .welcome-section h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+          }
+    
+          .welcome-section p {
+            font-size: 18px;
+            font-style: italic;
+          }
+        /* Set custom height for the carousel images */
+        .carousel-inner img {
+            height: 400px;
+            object-fit: cover;
+        }
+
+        h4 {
+            text-align: center;
+        }
+
+        h5 {
+            font-size: 35px
+        }
+
+        /* Style for the boxes */
+/* Styling for the boxes */
+.box {
+    background-color: white; /* Default background color */
+    border: 1px solid #ddd; /* Light border */
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover effect */
+.box:hover {
+    background-color: lightgreen; /* Change background color on hover */
+    transform: scale(1.05); /* Slightly zoom in on hover */
+}
+
+/* Ensure anchor tag is not zoomed separately */
+.box .read-more {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.box .read-more:hover {
+    text-decoration: underline;
+}
+
+
+        /* Style for the hover effect */
+        .hover-image {
+            position: relative;
+            width: 100%;
+            height: 700px;
+            overflow: hidden;
+            width: 1400px;
+            margin: 20px 0;
+        }
+
+        .hover-image img {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1s ease;
+        }
+
+        .hover-image img.second-image {
+            opacity: 0;
+        }
+
+        .hover-image:hover img.first-image {
+            opacity: 0;
+        }
+
+        .hover-image:hover img.second-image {
+            opacity: 1;
+        }
+
+        .leaf-color {
+            background-color: #1bbd7ceb;
+            padding: 100px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .leaf-color.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .counter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .item-count {
+            margin: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .count {
+            font-size: 84px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-size: 25px;
+            color: white;
+        }
+
+        /* Vision and Mission section */
+        .vision-mission-section {
+            margin: 40px 0;
+            display: flex;
+            justify-content: space-around;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        
+        }
+        .vision-mission-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .vision,
+        .mission {
+            flex: 1;
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .vision-mission-section .vision:hover, 
+        .vision-mission-section .mission:hover {
+            background-color: green;
+            color: white; /* Optional: Change text color for better contrast */
+            transition: background-color 0.3s ease;
+        }
+        
+
+
+
+        .vision h4,
+        .mission h4 {
+            margin-bottom: 20px;
+        }
+
+        .green-section {
+            background-color: #28a745;
+            padding: 40px 20px;
+            margin: 40px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .green-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .box-container.show {
+            opacity: 1;
+        }
+        .blue-box {
+            padding:60px;
+            border: 1px solid #ccc;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+                        border-radius: 5px;
+
+        }
+
+        .blue-box.middle {
+            margin-top: 40px;
+        }
+
+        .blue-box:hover {
+            transform: scale(1.05); /* Slightly enlarge the box on hover */
+            background-color: green; /* Change background color to green */
+            color: white; /* Ensure the text is visible with white text */
+        }
+        .green-box {
+            background-color: white;
+            padding: 210px;
+            border: 1px solid #ccc;
+            width: 30%;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .green-box.middle {
+            margin-top: 70px;
+        }
+
+        .green-box:hover {
+            transform: scale(1.05);
+            background-color: #f0f0f0;
+        }
+
+        h6 {
+            font-size: 50px;
+            text-align: center;
+            color: green;
+        }
+
+        /* Style for the white section with images */
+        .white-section {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .white-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .white-section img {
+            width: 15%;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .white-section img:hover {
+            transform: scale(1.1);
+        }
+
+        .footer {
+            background-color: #28a745;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer .social-icons {
+            margin-top: 20px;
+        }
+
+        .footer .social-icons a {
+            margin: 0 10px;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+          }
+
+          
+        .content-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            background-color: #f8f9fa;
+            margin: 40px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        
+        }
+        .content-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .content-section .text-content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            margin-right: 20px;
+            transition: background-color 0.3s ease;
+            border-radius: 15px;
+
+        }
+        h7{
+            text-decoration: underline;
+            color: green;
+            font-size:55px;
+        }
+
+        .content-section .text-content:hover {
+            background-color: green;
+            color: white;
+        }
+
+        .content-section img {
+            flex: 1;
+            max-width: 50%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+          
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+          }
+          .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a5ba0;
+            padding: 10px 20px;
+          }
+    
+          .logo {
+            height: 50px;
+          }
+    
+          .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+          }
+    
+          .search-bar input {
+            border: none;
+            padding: 10px;
+            flex: 1;
+            padding-left: 15px;
+          }
+    
+          .search-bar button {
+            background-color: #ffffff;
+            border: none;
+            color: white;
+            padding: 0 15px;
+            cursor: pointer;
+          }
+    
+          .search-bar .fa-search {
+            color: #065a30;
+            padding-right: 15px;
+          }
+    
+         /* Base styling for the nav */
+
+
+nav ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Display items in a row */
+}
+
+nav ul li {
+    margin-right: 1px; /* Space between menu items */
+}
+
+nav ul li:last-child {
+    margin-right: 0; /* No space after the last item */
+}
+
+/* Link styling */
+.nav-link {
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px;
+    display: flex;
+    align-items: center; /* Vertically align text and icon */
+}
+
+/* Icon spacing */
+.nav-link i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+/* Hover effect */
+.nav-link:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #f0f0f0; /* Slightly lighter text on hover */
+}
+
+    
+   .user-options a {
+            color: white;
+            text-decoration: none;
+          }
+          .carousel-inner img {
+            height: 500px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+    .book-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.book {
+    flex: 0 0 auto;
+    text-align: center;
+    margin: 10px;
+    transition: transform 2s ease-in-out; /* Smooth transition for the sliding effect */
+    position: relative;
+}
+
+.book:hover {
+    transform: translateX(20px); /* Move the entire .book div 20px to the right */
+}
+
+.book img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.btn-custom {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background-color: darkorange;
+}
+
+h1{
+    color: green;
+    font-size:50px;
+    text-align:center;
+}
+.description-box {
+    display: none;
+    background-color: black;
+    padding: 10px;
+    border: 1px solid #ddd;
+    position: absolute;
+    width: 800px;
+    top: 150px; /* Adjust depending on positioning */
+    left: 450px;
+    z-index: 10;
+  }
+
+  li {
+    position: center;
+    color:white;
+  }
+
+  li:hover .description-box {
+    display: block;
+    
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .nav-link:hover {
+    background-color: darkblue;
+  }
+  .sliders {
+    display: flex;
+    width: 200%; /* Double the width to create sliding effect */
+    transition: transform 0.5s ease;
+  }
+  .slider-controd {
+    position: absolute;
+    top: 50%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  .col-md-4 {
+    flex: 0 0 33.333%; /* 3 columns in a row */
+    max-width: 50.333%;
+    padding: 10px;
+  }
+
+  .row1 {
+    display: flex;
+   
+  }
+  .container1 {
+    width: 150%;
+    overflow: hidden;
+    position: relative;
+    padding: 100px;
+    color: green;
+  }
+        h1{
+          color: darkblue;
+          margin-right: 700px;
+          font-style:italic;
+        }
+
+        .landing-page {
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+        }
+    
+        .landing-page video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 80%;
+          object-fit: cover;
+          z-index: -1;
+        }
+    
+        .landing-page h1 {
+          font-size: 3.5rem;
+          color: white;
+          background-color: rgba(0, 0, 0, 0.7);
+          padding: 20px;
+          border-radius: 12px;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+          animation: fadeIn 2s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+      <div class="header-container">
+        <img src="{{ url_for('static', filename='images/smart-agriculture-logo.jpg') }}" alt="Fasal Mandi" class="logo"/>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search Farmers.gov" />
+          <button><i class="fa fa-search"></i></button>
+        </div>
+        <nav>
+            <ul>
+              <li>
+                <a class="nav-link" href="{{ url_for('rotation') }}">
+                  <i class="fas fa-sync-alt"></i> Crop Rotation
+                </a>
+                <div class="description-box">Sustainable Farming Practice: Involves planting different crops in a planned sequence across growing seasons.<br><br>
+
+                    Improves Soil Fertility: Helps balance soil nutrients, reducing the need for chemical fertilizers. <br><br>
+                    
+                    Reduces Erosion: Strengthens soil structure, minimizing soil loss from wind and water.<br><br>
+                    
+                    Controls Pests and Diseases: Disrupts pest and disease cycles by changing crop types regularly.<br><br>
+                    
+                    Enhances Crop Yields: Healthier soil and fewer pests lead to higher crop productivity.<br><br>
+                    
+                    Suppresses Weeds: Rotating crops with different growth habits helps control weed populations.<br><br>
+                    
+                    Long-term Productivity: Promotes sustainable farming by maintaining soil health and environmental quality.<br><br>
+                    
+                    Requires Careful Planning: Crop cycles must be planned based on soil conditions, climate, and crop requirements.<br><br>  
+                </div>
+              </li>
+              <li>
+                <a class="nav-link" href="{{ url_for('about') }}">
+                  <i class="fas fa-info-circle"></i> About
+                </a>
+                <div class="description-box">Learn about the platform and its goals.</div>
+              </li>
+              <li>
+                <a class="nav-link" href="{{ url_for('weather_page') }}">
+                  <i class="fas fa-cloud"></i> weather
+                </a>
+                <div class="description-box">
+                  A weather prediction site offers real-time, location-based forecasts with key details like temperature, humidity, and wind speed. Users can check forecasts, receive alerts, and get notifications via SMS or WhatsApp to stay informed and prepared for weather changes.</div>
+              </li>
+              <li>
+                <a class="nav-link" href="{{ url_for('info') }}">
+                  <i class="fas fa-sliders-h"></i> Info
+                </a>
+                <div class="description-box">Reach out to us for any inquiries.</div>
+              </li>
+              <li>
+                <a class="nav-link" href="{{ url_for('selling') }}">
+                  <i class="fas fa-seedling"></i> Crops
+                </a>
+                <div class="description-box">Farmers have numerous opportunities to benefit from the platform, including buying and selling produce efficiently.<br><br>
+                  Access to tools that help identify the best crops for harvest based on soil pH, weather conditions, and location.<br><br>
+                  Information on high-quality fertilizers best suited for their specific crops.<br><br>
+                  Insights into the weekly water requirements of crops, ensuring optimal growth.<br><br>
+                  Tools to assess the quality of crops for better market value.<br><br>
+                  Price prediction based on crop quality, helping farmers maximize profitability.
+                </div>
+              </li>
+              <li>
+                <a class="nav-link" href="{{ url_for('marketing') }}">
+                  <i class="fas fa-chart-line"></i> Agriculture marketing
+                </a>
+                <div class="description-box">Investment Opportunity: Farmers can invest their profits in agriculture-related stocks or other ventures through a stock market platform. <br><br>
+
+                    Support from Lead Farmer: Lead farmers, experienced in investment, guide smaller or less experienced farmers in making smart investment decisions.<br><br>
+                    
+                    Diversifying Income: This allows farmers to diversify their income sources beyond traditional farming.<br><br>
+                    
+                    Profit Maximization: Farmers can grow their wealth by investing in agricultural stocks, machinery companies, or other relevant sectors.<br><br>
+                    
+                    Risk Management: Lead farmers help farmers understand and manage risks associated with stock market investments.<br><br>
+                    
+                    Collaborative Farming Community: Farmers pool resources and knowledge under the guidance of the lead farmer, promoting financial growth for the whole farming community.<br><br>
+                    
+                    Long-Term Financial Stability: Investing profits in the agriculture stock market ensures long-term financial security for farmers.<br><br>
+    
+                    </div>
+              </li>
+              <li>
+                <a class="nav-link" href="{{ url_for('recommended') }}">
+                  <i class="fas fa-leaf"></i> Crop Recommendation
+                </a>
+                <div class="description-box">Crop prediction considers key factors like temperature, humidity, pH, soil conditions, and NPK levels.
+                  Temperature and humidity influence plant growth and water needs.<br><br>
+                  Soil pH affects nutrient absorption.<br><br>
+                  NPK levels are vital for plant nutrition:<br><br>
+                  Nitrogen supports leaf growth.<br><br>
+                  Phosphorus aids root development.<br><br>
+                  Potassium enhances overall plant health.<br><br>
+                  Machine learning models analyze these factors to recommend optimal crops, improving yield and soil health while conserving resources. 
+                  </div>
+              </li>
+              <li>
+                <a class="nav-link" href="{{ url_for('scheme') }}">
+                  <i class="fas fa-university"></i> Govt Scheme
+                </a>
+                <div class="description-box">Government loan schemes provide financial support to improve agricultural productivity and stability.
+                  These schemes offer low-interest loans for purchasing equipment, seeds, fertilizers, and modernizing farming practices.<br><br>
+                  For farmers, loans reduce financial burdens, increase crop yields, and improve livelihoods.<br><br>
+                  For the government, these schemes promote sustainable agriculture, boost food security, and encourage rural development.<br><br>
+                  They contribute to economic growth and poverty reduction by supporting farmers.<br><br>
+                  These efforts ensure long-term agricultural resilience and secure the national food supply.
+                  </div>
+              </li>
+            </ul>
+          </nav>
+          
+      
+       
+      </div>
+    </header>
+ 
+    <div class="welcome-section">
+        <b><h6>Hello, Farmer Friend!</h6></b>
+        <b><p>
+          "A farmer's hard work is his identity. Every plant, every crop tells the story of your labor."
+        </p>
+      </b>
+      </div>
+
+      <div class="landing-page">
+        <video src="/static/your-video.mp4" autoplay muted loop></video>
+      </div>
+
+     
+      <!---  <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='images/pexels-blooddrainer-221016.jpg') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/pexels-jplenio-1146717.jpg') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/pexels-pixabay-50707.jpg') }}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <h4>About Project</h4>
+                    <p>
+                      Farmers can efficiently buy and sell produce using the platform. It helps identify the best crops for harvest based on soil pH, weather, and location, suggests suitable fertilizers, provides insights into water needs, assesses crop quality, and predicts prices based on quality to enhance profitability..</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box">
+                    <h4>Odisha CM</h4>
+                    <p>The Chief Minister of Odisha has been actively involved in promoting agricultural development in the state. They have emphasized the importance of improving farming practices, enhancing irrigation facilities, and supporting farmers through various schemes.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hover-image">
+            <img src="{{ url_for('static', filename='images/Screenshot 2024-08-20 123746.png') }}" class="d-block w-100" alt="..."/>
+            <img src="{{ url_for('static', filename='images/Screenshot 2024-08-20 123746.png') }}" class="d-block w-100" alt="..."/>
+
+          
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="leaf-color">
+                    <div class="counter">
+                        <div class="item-count">
+                            <span class="count" id="green-count">10</span> <br>
+                            <span class="label">Happy Growers</span>
+                        </div>
+                        <div class="item-count">
+                            <span class="count" id="yellow-count">20</span> <br>
+                            <span class="label">Varieties Grown</span>
+                        </div>
+                        <div class="item-count">
+                            <span class="count" id="red-count">30</span> <br>
+                            <span class="label">Automated Farms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row vision-mission-section">
+            <div class="col-md-6 vision">
+                <h5>OUR VISION </h5>
+                <p>To make agriculture a sustainable business by helping farmers <br>
+                    infuse the right set of technology and
+                    automation,<br> creating a more efficient, productive and <br> smarter farms of the future..</p>
+            </div>
+            <div class="col-md-6 mission">
+                <h5>OUR MISSION</h5>
+                <p>To enable at least 10,000 farms with technology and <br>
+                    right set of controls in a cost effective way <br> by
+                    providing turn-key and one <br> stop automation..</p>
+            </div>
+        </div>
+    </div>
+    </div> <br>  
+
+   
+      
+    <div class="container1">
+    <b>  <h1>OPPORTUNITY FOR FARMERS</h1>
+    </b>      <div class="sliders">
+          <div class="row1">
+              <div class="col-md-4">
+                  <div class="blue-box">
+                      <h4>Quality Prediction</h4>
+                      <p>Food quality prediction uses machine learning models to evaluate factors such as texture, appearance, and nutrient content to determine the overall quality of produce. This helps farmers and suppliers ensure better market value, optimize storage conditions, and meet consumer standards..</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="blue-box">
+                      <h4>Price Prediction</h4>
+                      <p>
+                        Price prediction uses data such as market trends, crop quality, and supply-demand factors to forecast the future prices of agricultural products. This helps farmers make informed decisions about when to sell, maximizing profits and reducing market risks..</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="blue-box">
+                      <h4>Government Resources</h4>
+                      <p>Government schemes for farmers provide financial support, subsidies, and resources to improve agricultural productivity. These programs offer low-interest loans, crop insurance, and access to modern technology, helping farmers reduce costs, manage risks, and enhance their livelihoods..</p>
+                  </div>
+              </div>
+              <!-- Additional divs -->
+              <div class="col-md-4">
+                  <div class="blue-box">
+                      <h4>Crop Prediction</h4>
+                      <p>Crop prediction analyzes factors like soil quality, temperature, humidity, and NPK levels to forecast the best crops for a given area. This helps farmers optimize crop selection, improve yields, and ensure efficient use of resources, contributing to sustainable agriculture..</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="blue-box">
+                      <h4>fertilizers Recommendation</h4>
+                      <p>
+                        Fertilizer recommendation involves analyzing soil nutrients like Nitrogen, Phosphorus, and Potassium (NPK) to provide tailored advice on the best fertilizers for crops. This ensures optimal nutrient levels, improving crop growth and health. By using the right fertilizer, farmers can enhance yields, reduce waste, and promote sustainable farming practices..</p>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="blue-box">
+                      <h4>Water Requirements</h4>
+                      <p>
+                        Water prediction in agriculture forecasts crop water needs using factors like soil moisture, temperature, humidity, wind speed, and solar radiation. By analyzing these, advanced models help farmers manage irrigation efficiently, reducing water waste and improving crop health. This technology promotes sustainable farming, saves costs, and boosts yields.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+  </div>
+
+      <br>  <br> 
+
+    <h6>WE MONITOR & CONTROL EVERYTHING</h6>
+
+    <div class="white-section">
+        <img src="{{ url_for('static', filename='images/images (4).jpeg') }}" alt="Image 1"/>
+        <img src="{{ url_for('static', filename='images/images (3).jpeg') }}" alt="Image 1"/>
+        <img src="{{ url_for('static', filename='images/images (2).jpeg') }}" alt="Image 1"/>
+        <img src="{{ url_for('static', filename='images/download (3).jpeg') }}" alt="Image 4"/>
+        <img src="{{ url_for('static', filename='images/download (4).jpeg') }}"  alt="Image 5"/>
+        <img src="{{ url_for('static', filename='images/download.png') }}" alt="Image 6"/>
+
+    </div>
+
+    <div class="content-section">
+        <div class="text-content">
+            <h3>We're revolutionising the way you run your greenhouse or polyhouse. </h3>
+            <p>Is your crop and business performing well? This is becoming increasingly vital, much as efficient use of
+                water and energy and the safe production of vegetables, fruit, and decorative plants are. It's a
+                cost-effective integrated control solution for Polyhouse control. Farmfluence is a user-friendly and
+                ecological solution that allows you to easily regulate your crop by using the least amount of water and
+                energy possible.</p>
+        </div>
+        <img src="{{ url_for('static', filename='images/pexels-pixabay-50707.jpg') }}" class="d-block w-100" alt="Sample Image"/>
+
+    </div>
+    
+
+    <h1>Publications</h1>
+    <div class="book-container">
+        <div class="book">
+            <img src="{{ url_for('static', filename='images/icar.jpeg') }}" alt="Image 1"/>
+            <h3> Transforming Agriculture</h3>
+            <a href="https://icar.org.in/sites/default/files/2023-02/download.pdf" class="btn btn-custom">Download Publication</a>
+        </div>
+        <div class="book">
+            <img src="{{ url_for('static', filename='images/phal-phul.jpeg') }}" alt="Image 2"/>
+            <h3>Phal-Phul</h3>
+            <a href="https://icar.org.in/sites/default/files/2024-07/14%20July-August%202024_0.pdf" class="btn btn-custom">Download Publication</a>
+        </div>
+        <div class="book">
+            <img src="{{ url_for('static', filename='images/india.jpeg') }}" alt="Image 3"/>
+            <h3>Indian Agriculture </h3>
+            <a href="https://icar.org.in/sites/default/files/2023-02/Indian-Agriculture-after-Independence.pdf" class="btn btn-custom">Download Publication</a>
+        </div>
+        <div class="book">
+            <img src="{{ url_for('static', filename='images/significant.jpeg') }}" alt="Image 4"/>
+            <h3>Significant Achievements</h3>
+            <a href="https://icar.org.in/sites/default/files/2023-07/Significant%20Achievements%20During%202014-23%20English%2017%20July%2023.pdf" class="btn btn-custom">Download Publication</a>
+        </div>
+        <div class="book">
+            <img src="{{ url_for('static', filename='images/anual.jpeg') }}" alt="Image 5"/>
+            <h3>Annual Report </h3>
+            <a href="https://icar.org.in/sites/default/files/2023-07/ICAR-Annual-Report-2022-23-English.pdf" class="btn btn-custom">Download Publication</a>
+        </div>
+    </div>
+    
+    <h6>Why Farmers Markets??</h6>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{{ url_for('static', filename='images/farmer.jpg') }}" class="d-block w-100" alt="..."/>
+
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <p>&copy; 2024 FarmHub. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:info@FarmHub.com">info@yourcompany.com</a></p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const boxes = document.querySelectorAll(".box");
+            const sections = document.querySelectorAll(
+              ".leaf-color, .vision-mission-section, .green-section, .content-section, .white-section, .chart-section"
+            );
+          
+            const showOnScroll = (elements) => {
+              elements.forEach((element) => {
+                if (
+                  element.getBoundingClientRect().top <
+                  window.innerHeight * 0.9
+                ) {
+                  element.classList.add("show");
+                }
+              });
+            };
+          
+            const onScroll = () => {
+              showOnScroll(boxes);
+              showOnScroll(sections);
+            };
+          
+            window.addEventListener("scroll", onScroll);
+            onScroll(); // Trigger on load in case elements are already in view
+          
+            // Smooth scrolling for navbar links
+            document.querySelectorAll(".dashboard-item a").forEach((anchor) => {
+              anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+          
+                document.querySelector(this.getAttribute("href")).scrollIntoView({
+                  behavior: "smooth",
+                });
+              });
+            });
+          
+            // Change navbar background on scroll
+            window.addEventListener("scroll", () => {
+              const navbar = document.querySelector(".dashboard");
+              if (window.scrollY > 50) {
+                navbar.style.backgroundColor = "#337ab7";
+              } else {
+                navbar.style.backgroundColor = "#fff";
+              }
+            });
+          
+            // Fetch performance data and render the chart
+            fetch('/performance-data')
+              .then(response => response.json())
+              .then(data => {
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+                new Chart(ctx, {
+                  type: 'line',
+                  data: data,
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+              });
+          });
+          let currentIndex = 0;
+          const visibleSlides = 3; // Number of slides visible at once
+          const totalSlides = document.querySelectorAll('.col-md-4').length;
+          const slideWidth = 100 / visibleSlides; // Percentage width for sliding effect
+          
+          function moveSlide(direction) {
+            const slides = document.querySelector('.sliders');
+          
+            currentIndex += direction;
+          
+            // If currentIndex exceeds the number of available slides, reset
+            if (currentIndex >= totalSlides - visibleSlides + 1) {
+              currentIndex = 0; // Loop back to the beginning
+            } else if (currentIndex < 0) {
+              currentIndex = totalSlides - visibleSlides; // Move to the last set of slides
+            }
+          
+            const offset = currentIndex * slideWidth;
+            slides.style.transform = `translateX(-${offset}%)`;
+          }
+          
+          // Automatic sliding every 2 seconds
+          setInterval(() => {
+            moveSlide(1); // Move slides to the right automatically
+          }, 2000);
+          
+          // Manual controls can be added if necessary:
+          // document.querySelector('.prev').addEventListener('click', () => moveSlide(-1));
+          // document.querySelector('.next').addEventListener('click', () => moveSlide(1));
+          
+          
+          let greenCount = 10;
+          let yellowCount = 20;
+          let redCount = 30;
+          
+          setInterval(() => {
+            greenCount++;
+            yellowCount++;
+            redCount++;
+          
+            // Add plus sign next to the numbers
+            document.getElementById("green-count").innerHTML = greenCount + "+";
+            document.getElementById("yellow-count").innerHTML = yellowCount + "+";
+            document.getElementById("red-count").innerHTML = redCount + "+";
+          }, 100); // increment every 1 second
+          
+          // Show boxes with delay
+          window.addEventListener("load", () => {
+            setTimeout(() => {
+              document.getElementById("boxContainer").classList.add("show");
+            }, 1000);
+          });
+          
+    </script>
+</body>
+
+</html>
